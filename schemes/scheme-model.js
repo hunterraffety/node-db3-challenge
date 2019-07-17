@@ -27,11 +27,21 @@ function findById(id) {
 }
 
 function findSteps(id) {
-  //
+  return db('steps')
+    .innerJoin('schemes as s', 's.id', 'steps.scheme_id')
+    .where({ scheme_id: id })
+    .select(
+      's.scheme_name as SchemeName',
+      'steps.step_number as StepNumber',
+      'steps.instructions as Instructions'
+    );
 }
 
 function add(scheme) {
   //
+  return db('schemes')
+    .insert(scheme)
+    .then(id => ({ id }));
 }
 
 function update(changes, id) {
