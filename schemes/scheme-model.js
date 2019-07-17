@@ -38,16 +38,22 @@ function findSteps(id) {
 }
 
 function add(scheme) {
-  //
   return db('schemes')
     .insert(scheme)
-    .then(id => ({ id }));
+    .then(id => ({ id }))
+    .catch(error => {
+      res.json(error);
+    });
 }
 
 function update(changes, id) {
-  //
+  return db('schemes')
+    .where({ id: id })
+    .update(changes);
 }
 
 function remove(id) {
-  //
+  return db('schemes')
+    .where({ id })
+    .del();
 }
